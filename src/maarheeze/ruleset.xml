@@ -30,7 +30,10 @@
     </rule>
     <rule ref="Generic.PHP.ForbiddenFunctions">
         <properties>
-            <property name="forbiddenFunctions" type="array" value="empty=>null,isset=>null"/>
+            <property name="forbiddenFunctions" type="array">
+                <element key="empty" value="null"/>
+                <element key="isset" value="null"/>
+            </property>
         </properties>
     </rule>
     <rule ref="Generic.PHP.Syntax"/>
