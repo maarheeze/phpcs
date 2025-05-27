@@ -35,8 +35,6 @@
     </rule>
     <rule ref="Generic.PHP.Syntax"/>
 
-    <rule ref="MySource.PHP.GetRequestData"/>
-
     <rule ref="PSR1.Files.SideEffects"/>
     <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
 
