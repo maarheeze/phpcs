@@ -1,7 +1,7 @@
 {
     "name": "maarheeze/phpcs",
     "type": "phpcodesniffer-standard",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "maarheeze\\phpcs\\": "src"
