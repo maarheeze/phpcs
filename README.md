@@ -1,6 +1,6 @@
 # phpcs
 
-extension of [squizlabs/PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/), but with a custom ruleset
+extension of [PHPCSStandards/PHP_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/), but with a custom ruleset
 
 ## installation
 
