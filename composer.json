@@ -1,5 +1,6 @@
 {
     "name": "maarheeze/phpcs",
+    "description": "phpcs-extension with a custom ruleset",
     "type": "phpcodesniffer-standard",
     "license": "MIT",
     "autoload": {
