@@ -63,6 +63,8 @@
             <property name="linesCountBetweenAnnotationsGroups" value="1"/>
             <property name="annotationsGroups" type="array">
                 <element value="@template,@template-covariant"/>
+                <element value="@property"/>
+                <element value="@property-read"/>
                 <element value="@param"/>
                 <element value="@return"/>
                 <element value="@throws"/>
