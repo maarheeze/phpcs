@@ -38,6 +38,24 @@ class MultiLineMethodChainingSniffTest extends TestCase
         self::assertAllFixedInFile($report);
     }
 
+    public function testMinimumCalls(): void
+    {
+        $report = self::checkFile(
+            __DIR__ . '/data/multiLineMethodChainingMinimumCalls.php',
+            ['minimumCalls' => 3],
+        );
+
+        self::assertSame(5, $report->getErrorCount());
+
+        self::assertSniffError($report, 7, $this->code(), 'Call to "for()"');
+        self::assertSniffError($report, 7, $this->code(), 'Call to "createOne()"');
+        self::assertSniffError($report, 9, $this->code(), 'Call to "find()"');
+        self::assertSniffError($report, 9, $this->code(), 'Call to "refresh()"');
+        self::assertSniffError($report, 9, $this->code(), 'Call to "toArray()"');
+
+        self::assertAllFixedInFile($report);
+    }
+
     private function code(): string
     {
         return MultiLineMethodChainingSniff::CODE_MULTI_LINE_REQUIRED;

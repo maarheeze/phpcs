@@ -41,18 +41,22 @@ use const T_WHITESPACE;
 
 class MultiLineMethodChainingSniff implements Sniff
 {
-    public const CODE_MULTI_LINE_REQUIRED = 'MultiLineRequired';
+    public const string CODE_MULTI_LINE_REQUIRED = 'MultiLineRequired';
 
-    private const INDENTATION_WIDTH = 4;
+    /**
+     * The number of calls a chain needs before it has to be broken up. A
+     * ruleset hands its values over as strings, hence the union type.
+     */
+    public int|string $minimumCalls = 2;
 
-    private const MINIMUM_CALLS = 2;
+    private const int INDENTATION_WIDTH = 4;
 
-    private const OBJECT_OPERATORS = [
+    private const array OBJECT_OPERATORS = [
         T_OBJECT_OPERATOR,
         T_NULLSAFE_OBJECT_OPERATOR,
     ];
 
-    private const NAME_TOKENS = [
+    private const array NAME_TOKENS = [
         T_DOUBLE_COLON,
         T_NEW,
         T_NS_SEPARATOR,
@@ -63,7 +67,7 @@ class MultiLineMethodChainingSniff implements Sniff
         T_VARIABLE,
     ];
 
-    private const CALL_END_TOKENS = [
+    private const array CALL_END_TOKENS = [
         T_CLOSE_CURLY_BRACKET,
         T_CLOSE_PARENTHESIS,
         T_CLOSE_SQUARE_BRACKET,
@@ -106,7 +110,7 @@ class MultiLineMethodChainingSniff implements Sniff
 
         // Property fetches are members too, but they never make a chain worth
         // breaking on their own.
-        if ($calls < self::MINIMUM_CALLS) {
+        if ($calls < (int) $this->minimumCalls) {
             return;
         }
 

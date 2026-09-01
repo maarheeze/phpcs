@@ -57,6 +57,23 @@ $value = $game->firstPlayer->token->value;
 
 A chain broken up more than the rule requires is accepted as it is.
 
+### configuration
+
+`minimumCalls` sets how many calls a chain needs before it has to break, and
+defaults to `2`:
+
+```xml
+<rule ref="Maarheeze.Formatting.MultiLineMethodChaining">
+    <properties>
+        <property name="minimumCalls" value="3"/>
+    </properties>
+</rule>
+```
+
+Under the opinionated standard, put that same element next to
+`<rule ref="Maarheeze"/>`. It does not add a second sniff; it configures the
+one the standard already brings in.
+
 ## the opinionated standard
 
 Pulls in PSR-12, the Generic / Squiz / Slevomat selection, and the sniff above:
