@@ -3,9 +3,6 @@
 $result = $query->where('active', true)
     ->first();
 
-$director = Player::factory()
-    ->createOne();
-
 $token = $game->currentPlayer()
     ->firstCard
     ->token();

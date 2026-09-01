@@ -26,3 +26,9 @@ $token = $game->currentPlayer()
 $value = $game->firstPlayer->token->value;
 
 $id = $this->game->id;
+
+$path = app()->path();
+
+$player = Player::factory()->createOne();
+
+Route::livewire('/', GameIndex::class)->name('games.index');

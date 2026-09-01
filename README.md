@@ -47,9 +47,15 @@ $user = $this->service
     ->toArray();
 ```
 
-It applies to chains of two or more calls. Property fetches are members and
-break along with the rest, but do not count toward that threshold, so a chain
-of pure fetches is left alone:
+It applies to chains of two or more calls among the members. A leading call is
+the head, not a member, so a single call hanging off one stays where it is:
+
+```php
+Route::livewire('/', GameIndex::class)->name('games.index');
+```
+
+Property fetches are members and break along with the rest, but do not count
+toward the threshold either, so a chain of pure fetches is left alone:
 
 ```php
 $value = $game->firstPlayer->token->value;
@@ -59,8 +65,8 @@ A chain broken up more than the rule requires is accepted as it is.
 
 ### configuration
 
-`minimumCalls` sets how many calls a chain needs before it has to break, and
-defaults to `2`:
+`minimumCalls` sets how many member calls a chain needs before it has to
+break, and defaults to `2`:
 
 ```xml
 <rule ref="Maarheeze.Formatting.MultiLineMethodChaining">

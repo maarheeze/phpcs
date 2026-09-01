@@ -67,17 +67,6 @@ class MultiLineMethodChainingSniff implements Sniff
         T_VARIABLE,
     ];
 
-    private const array CALL_END_TOKENS = [
-        T_CLOSE_CURLY_BRACKET,
-        T_CLOSE_PARENTHESIS,
-        T_CLOSE_SQUARE_BRACKET,
-        T_PARENT,
-        T_SELF,
-        T_STATIC,
-        T_STRING,
-        T_VARIABLE,
-    ];
-
     /**
      * @return list<int|string>
      */
@@ -99,17 +88,14 @@ class MultiLineMethodChainingSniff implements Sniff
             return;
         }
 
+        // The head is the chain's subject, not a member, so a leading call
+        // does not count. Property fetches are members, but they never make a
+        // chain worth breaking on their own either.
         $calls = count(array_filter(
             $members,
             static fn (array $member): bool => $member['isCall'],
         ));
 
-        if ($this->headIsCall($phpcsFile, $members[0]['operator'])) {
-            $calls++;
-        }
-
-        // Property fetches are members too, but they never make a chain worth
-        // breaking on their own.
         if ($calls < (int) $this->minimumCalls) {
             return;
         }
@@ -303,39 +289,6 @@ class MultiLineMethodChainingSniff implements Sniff
         }
 
         return $members;
-    }
-
-    /**
-     * Whether the part before the first operator is a call of its own, as in
-     * "Player::factory()" or "new Player()".
-     */
-    private function headIsCall(File $phpcsFile, int $firstOperator): bool
-    {
-        $tokens = $this->tokens($phpcsFile);
-
-        $previous = $phpcsFile->findPrevious(
-            Tokens::EMPTY_TOKENS,
-            $firstOperator - 1,
-            null,
-            true,
-        );
-
-        if ($previous === false || $tokens[$previous]['code'] !== T_CLOSE_PARENTHESIS) {
-            return false;
-        }
-
-        $opener = $tokens[$previous]['parenthesis_opener'];
-        assert(is_int($opener));
-
-        $beforeOpener = $phpcsFile->findPrevious(
-            Tokens::EMPTY_TOKENS,
-            $opener - 1,
-            null,
-            true,
-        );
-
-        return $beforeOpener !== false
-            && in_array($tokens[$beforeOpener]['code'], self::CALL_END_TOKENS, true);
     }
 
     private function getMemberIndentation(File $phpcsFile, int $chainStart): string

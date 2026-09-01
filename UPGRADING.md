@@ -4,6 +4,7 @@ Breaking changes per major version, newest first.
 
 ## 2.x to 3.0
 
+The package now requires PHP 8.3.
 The coding standard was renamed from `maarheeze` to `Maarheeze`. Update the
 reference in your `phpcs.xml.dist`:
 

@@ -6,6 +6,7 @@ $token = $game->currentPlayer()->firstCard->token();
 
 $director = Player::factory()
     ->for($game)
+    ->count(3)
     ->createOne();
 
 $user = $this->service
