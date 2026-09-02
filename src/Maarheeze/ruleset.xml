@@ -38,6 +38,8 @@
     </rule>
     <rule ref="Generic.PHP.Syntax"/>
 
+    <rule ref="Maarheeze.Formatting.MultiLineMethodChaining"/>
+
     <rule ref="PSR1.Files.SideEffects"/>
     <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
 

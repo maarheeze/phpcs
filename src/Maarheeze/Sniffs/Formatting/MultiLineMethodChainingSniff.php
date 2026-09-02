@@ -107,6 +107,13 @@ class MultiLineMethodChainingSniff implements Sniff
             ? array_slice($members, 1)
             : $members;
 
+        if (
+            count($membersToBreak) === 0
+            || $this->headIsMultiLine($phpcsFile, $membersToBreak[0]['operator'])
+        ) {
+            return;
+        }
+
         $indentation = $this->getMemberIndentation($phpcsFile, $chainStart);
 
         foreach ($membersToBreak as $member) {
@@ -289,6 +296,32 @@ class MultiLineMethodChainingSniff implements Sniff
         }
 
         return $members;
+    }
+
+    /**
+     * Whether the head's trailing call spreads its arguments over more than one
+     * line. Such a head is broken up already, and its closing bracket is a
+     * better place to hang the next member from than a line of its own.
+     */
+    private function headIsMultiLine(File $phpcsFile, int $operator): bool
+    {
+        $tokens = $this->tokens($phpcsFile);
+
+        $previous = $phpcsFile->findPrevious(
+            Tokens::EMPTY_TOKENS,
+            $operator - 1,
+            null,
+            true,
+        );
+
+        if ($previous === false || $tokens[$previous]['code'] !== T_CLOSE_PARENTHESIS) {
+            return false;
+        }
+
+        $opener = $tokens[$previous]['parenthesis_opener'];
+        assert(is_int($opener));
+
+        return $tokens[$opener]['line'] !== $tokens[$previous]['line'];
     }
 
     private function getMemberIndentation(File $phpcsFile, int $chainStart): string

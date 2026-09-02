@@ -32,3 +32,7 @@ $path = app()->path();
 $player = Player::factory()->createOne();
 
 Route::livewire('/', GameIndex::class)->name('games.index');
+
+$response = $kernel->handle(
+    $request,
+)->send();

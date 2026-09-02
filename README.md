@@ -4,10 +4,9 @@ extension of [PHPCSStandards/PHP_CodeSniffer](https://github.com/PHPCSStandards/
 
 Two separate things live in this package, take either or both:
 
-- **a sniff** — `Maarheeze.Formatting.MultiLineMethodChaining` — that drops into
-  any ruleset, whatever standard you already use
+- **custom sniffs** that drop into any ruleset, whatever standard you already use
 - **an opinionated standard** — `Maarheeze` — PSR-12 plus a selection of
-  Generic, Squiz and Slevomat sniffs, and the sniff above
+  Generic, Squiz and Slevomat sniffs, and the custom sniffs
 
 ## installation
 
@@ -15,80 +14,34 @@ Two separate things live in this package, take either or both:
 composer require maarheeze/phpcs --dev
 ```
 
-The Composer plugin registers the standard with PHP_CodeSniffer, so both of the
-references below work straight away.
+The Composer plugin registers everything with PHP_CodeSniffer, so both the
+sniffs and the standard can be referenced by name from here on. There is
+nothing else to set up.
 
-## the sniff on its own
+## the custom sniffs
 
-Reference it from your own ruleset, next to whatever else you run:
+| sniff | description |
+| --- | --- |
+| [`Maarheeze.Formatting.MultiLineMethodChaining`](docs/formatting.md#multilinemethodchaining) | one member per line in a method chain |
 
-```xml
-<rule ref="Maarheeze.Formatting.MultiLineMethodChaining"/>
-```
-
-Nothing else from this package comes with it.
-
-### what it does
-
-One member per line in a method chain. Auto-fixable.
-
-A chain's head is its subject — a bare variable plus its first member, or a
-standalone leading call when there is no variable to attach it to. The head
-stays on the statement's first line; every further `->` / `?->` starts its own
-line, indented four spaces past the indent of the head's line.
-
-```php
-// before
-$user = $this->service->find($id)->toArray();
-
-// after
-$user = $this->service
-    ->find($id)
-    ->toArray();
-```
-
-It applies to chains of two or more calls among the members. A leading call is
-the head, not a member, so a single call hanging off one stays where it is:
-
-```php
-Route::livewire('/', GameIndex::class)->name('games.index');
-```
-
-Property fetches are members and break along with the rest, but do not count
-toward the threshold either, so a chain of pure fetches is left alone:
-
-```php
-$value = $game->firstPlayer->token->value;
-```
-
-A chain broken up more than the rule requires is accepted as it is.
-
-### configuration
-
-`minimumCalls` sets how many member calls a chain needs before it has to
-break, and defaults to `2`:
-
-```xml
-<rule ref="Maarheeze.Formatting.MultiLineMethodChaining">
-    <properties>
-        <property name="minimumCalls" value="3"/>
-    </properties>
-</rule>
-```
-
-Under the opinionated standard, put that same element next to
-`<rule ref="Maarheeze"/>`. It does not add a second sniff; it configures the
-one the standard already brings in.
+They are referenced like any other sniff, and nothing else from this package
+comes with them. What each one reports and which properties it accepts is
+documented in [docs](docs).
 
 ## the opinionated standard
 
-Pulls in PSR-12, the Generic / Squiz / Slevomat selection, and the sniff above:
+`Maarheeze` is one reference that stands in for a whole ruleset. It builds on
+PSR-12, adds a selection of Generic, Squiz and Slevomat sniffs — strict types,
+trailing commas everywhere, imports sorted and pruned, short ternaries, no Yoda
+comparisons, a 90 character soft line limit — and brings in the custom sniffs
+above. The point is that the choices are settled here, so a project does not
+have to argue them out again:
 
 ```xml
 <rule ref="Maarheeze"/>
 ```
 
-- create a `phpcs.xml.dist` file in the root of the project as a starting point:
+If the project has no ruleset yet, create a `phpcs.xml.dist` in its root:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -107,11 +60,35 @@ Pulls in PSR-12, the Generic / Squiz / Slevomat selection, and the sniff above:
 </ruleset>
 ```
 
-### optional
+And run it:
 
-- add `phpcs.xml` to the `.gitignore` in the root of the project (to allow local override)
-- add folders to exclude
+```
+php vendor/bin/phpcs
+```
 
-## usage
+### editing the ruleset
 
-`php vendor/bin/phpcs` 
+Take the standard whole, or bend it where you disagree. It is an ordinary
+standard, so everything a ruleset can normally do applies.
+
+Drop a sniff you do not want:
+
+```xml
+<rule ref="Maarheeze">
+    <exclude name="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
+</rule>
+```
+
+Or override the properties of one. That is a second, separate `<rule>` next to
+the first — a `<rule>` cannot be nested in another, and referencing a sniff the
+standard already includes configures it rather than adding it twice:
+
+```xml
+<rule ref="Maarheeze"/>
+
+<rule ref="Maarheeze.Formatting.MultiLineMethodChaining">
+    <properties>
+        <property name="minimumCalls" value="3"/>
+    </properties>
+</rule>
+```
