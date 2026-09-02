@@ -47,7 +47,7 @@ class MultiLineMethodChainingSniff implements Sniff
      * The number of calls a chain needs before it has to be broken up. A
      * ruleset hands its values over as strings, hence the union type.
      */
-    public int|string $minimumCalls = 2;
+    public int|string $minimumCalls = 3;
 
     private const int INDENTATION_WIDTH = 4;
 

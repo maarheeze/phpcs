@@ -33,6 +33,8 @@ $player = Player::factory()->createOne();
 
 Route::livewire('/', GameIndex::class)->name('games.index');
 
+$result = $query->where('active', true)->first();
+
 $response = $kernel->handle(
     $request,
-)->send();
+)->send()->getContent();

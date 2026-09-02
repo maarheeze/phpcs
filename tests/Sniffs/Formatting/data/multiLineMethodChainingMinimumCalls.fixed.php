@@ -1,15 +1,14 @@
 <?php
 
-$result = $query->where('active', true)->first();
+$player = Player::factory()->createOne();
 
-$token = $game->currentPlayer()->firstCard->token();
+$result = $query->where('active', true)
+    ->first();
 
-$director = Player::factory()
-    ->for($game)
-    ->count(3)
-    ->createOne();
+$token = $game->currentPlayer()
+    ->firstCard
+    ->token();
 
 $user = $this->service
     ->find($id)
-    ->refresh()
     ->toArray();

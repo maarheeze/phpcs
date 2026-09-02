@@ -15,20 +15,21 @@ line, indented four spaces past the indent of the head's line.
 
 ```php
 // before
-$user = $this->service->find($id)->toArray();
+$user = $this->service->find($id)->refresh()->toArray();
 
 // after
 $user = $this->service
     ->find($id)
+    ->refresh()
     ->toArray();
 ```
 
-A chain breaks when two or more of its members are calls. Anything else is
+A chain breaks when three or more of its members are calls. Anything else is
 left as written:
 
 ```php
-// one member call — the leading call is the head, not a member
-Route::livewire('/', GameIndex::class)->name('games.index');
+// two member calls — under the threshold
+$result = $query->where('active', true)->first();
 
 // no calls at all — property fetches are members, but never count
 $value = $game->firstPlayer->token->value;
@@ -44,12 +45,12 @@ A chain broken up more than the rule requires is accepted as it is.
 ### configuration
 
 `minimumCalls` sets how many member calls a chain needs before it has to
-break, and defaults to `2`:
+break, and defaults to `3`:
 
 ```xml
 <rule ref="Maarheeze.Formatting.MultiLineMethodChaining">
     <properties>
-        <property name="minimumCalls" value="3"/>
+        <property name="minimumCalls" value="2"/>
     </properties>
 </rule>
 ```

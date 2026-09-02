@@ -88,7 +88,7 @@ standard already includes configures it rather than adding it twice:
 
 <rule ref="Maarheeze.Formatting.MultiLineMethodChaining">
     <properties>
-        <property name="minimumCalls" value="3"/>
+        <property name="minimumCalls" value="2"/>
     </properties>
 </rule>
 ```

@@ -19,19 +19,23 @@ class MultiLineMethodChainingSniffTest extends TestCase
     {
         $report = self::checkFile(__DIR__ . '/data/multiLineMethodChainingErrors.php');
 
-        self::assertSame(12, $report->getErrorCount());
+        self::assertSame(16, $report->getErrorCount());
 
+        self::assertSniffError($report, 3, $this->code(), 'Call to "orderBy()"');
         self::assertSniffError($report, 3, $this->code(), 'Call to "first()"');
         self::assertSniffError($report, 5, $this->code(), 'Property "firstCard"');
+        self::assertSniffError($report, 5, $this->code(), 'Call to "fresh()"');
         self::assertSniffError($report, 5, $this->code(), 'Call to "token()"');
         self::assertSniffError($report, 7, $this->code(), 'Call to "find()"');
+        self::assertSniffError($report, 7, $this->code(), 'Call to "refresh()"');
         self::assertSniffError($report, 7, $this->code(), 'Call to "toArray()"');
         self::assertSniffError($report, 9, $this->code(), 'Call to "refresh()"');
+        self::assertSniffError($report, 9, $this->code(), 'Call to "reload()"');
         self::assertSniffError($report, 9, $this->code(), 'Call to "getName()"');
-        self::assertSniffError($report, 11, $this->code(), 'Call to "for()"');
-        self::assertSniffError($report, 11, $this->code(), 'Call to "count()"');
+        self::assertSniffError($report, 11, $this->code(), 'Call to "create()"');
         self::assertSniffError($report, 11, $this->code(), 'Call to "createOne()"');
         self::assertSniffError($report, 18, $this->code(), 'Call to "for()"');
+        self::assertSniffError($report, 18, $this->code(), 'Call to "count()"');
         self::assertSniffError($report, 18, $this->code(), 'Call to "createOne()"');
 
         self::assertAllFixedInFile($report);
@@ -41,16 +45,15 @@ class MultiLineMethodChainingSniffTest extends TestCase
     {
         $report = self::checkFile(
             __DIR__ . '/data/multiLineMethodChainingMinimumCalls.php',
-            ['minimumCalls' => 3],
+            ['minimumCalls' => 2],
         );
 
-        self::assertSame(6, $report->getErrorCount());
+        self::assertSame(5, $report->getErrorCount());
 
-        self::assertSniffError($report, 7, $this->code(), 'Call to "for()"');
-        self::assertSniffError($report, 7, $this->code(), 'Call to "count()"');
-        self::assertSniffError($report, 7, $this->code(), 'Call to "createOne()"');
+        self::assertSniffError($report, 5, $this->code(), 'Call to "first()"');
+        self::assertSniffError($report, 7, $this->code(), 'Property "firstCard"');
+        self::assertSniffError($report, 7, $this->code(), 'Call to "token()"');
         self::assertSniffError($report, 9, $this->code(), 'Call to "find()"');
-        self::assertSniffError($report, 9, $this->code(), 'Call to "refresh()"');
         self::assertSniffError($report, 9, $this->code(), 'Call to "toArray()"');
 
         self::assertAllFixedInFile($report);

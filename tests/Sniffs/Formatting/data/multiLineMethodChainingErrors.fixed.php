@@ -1,23 +1,26 @@
 <?php
 
 $result = $query->where('active', true)
+    ->orderBy('name')
     ->first();
 
 $token = $game->currentPlayer()
     ->firstCard
+    ->fresh()
     ->token();
 
 $user = $this->service
     ->find($id)
+    ->refresh()
     ->toArray();
 
 $name = $game->player()
     ?->refresh()
+    ?->reload()
     ?->getName();
 
-$game = $builder->has(Player::factory()
-    ->for($user)
-    ->count(3))
+$game = $builder->has(Player::factory()->for($user)->count(3))
+    ->create()
     ->createOne();
 
 class Foo
@@ -27,6 +30,7 @@ class Foo
         return [
             'director' => Player::factory()
                 ->for($this->game)
+                ->count(2)
                 ->createOne(),
         ];
     }
