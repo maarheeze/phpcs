@@ -38,6 +38,7 @@
     </rule>
     <rule ref="Generic.PHP.Syntax"/>
 
+    <rule ref="Maarheeze.Formatting.MultiLineCallEndsStatement"/>
     <rule ref="Maarheeze.Formatting.MultiLineMethodChaining"/>
 
     <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>

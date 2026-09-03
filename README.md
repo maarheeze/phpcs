@@ -23,6 +23,7 @@ nothing else to set up.
 | sniff | description |
 | --- | --- |
 | [`Maarheeze.Formatting.MultiLineMethodChaining`](docs/formatting.md#multilinemethodchaining) | one member per line in a method chain |
+| [`Maarheeze.Formatting.MultiLineCallEndsStatement`](docs/formatting.md#multilinecallendsstatement) | a call with multi-line arguments ends its statement |
 
 They are referenced like any other sniff, and nothing else from this package
 comes with them. What each one reports and which properties it accepts is

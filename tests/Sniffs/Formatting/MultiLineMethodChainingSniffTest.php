@@ -19,7 +19,7 @@ class MultiLineMethodChainingSniffTest extends TestCase
     {
         $report = self::checkFile(__DIR__ . '/data/multiLineMethodChainingErrors.php');
 
-        self::assertSame(16, $report->getErrorCount());
+        self::assertSame(19, $report->getErrorCount());
 
         self::assertSniffError($report, 3, $this->code(), 'Call to "orderBy()"');
         self::assertSniffError($report, 3, $this->code(), 'Call to "first()"');
@@ -37,6 +37,9 @@ class MultiLineMethodChainingSniffTest extends TestCase
         self::assertSniffError($report, 18, $this->code(), 'Call to "for()"');
         self::assertSniffError($report, 18, $this->code(), 'Call to "count()"');
         self::assertSniffError($report, 18, $this->code(), 'Call to "createOne()"');
+        self::assertSniffError($report, 23, $this->code(), 'Call to "withDefaults()"');
+        self::assertSniffError($report, 23, $this->code(), 'Call to "build()"');
+        self::assertSniffError($report, 23, $this->code(), 'Call to "result()"');
 
         self::assertAllFixedInFile($report);
     }

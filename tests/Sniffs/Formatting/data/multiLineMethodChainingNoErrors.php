@@ -38,3 +38,8 @@ $result = $query->where('active', true)->first();
 $response = $kernel->handle(
     $request,
 )->send()->getContent();
+
+$mapper = (new Mapper($config))
+    ->withDefaults()
+    ->build()
+    ->result();

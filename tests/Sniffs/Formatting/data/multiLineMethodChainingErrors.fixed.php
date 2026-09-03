@@ -35,3 +35,8 @@ class Foo
         ];
     }
 }
+
+$mapper = (new Mapper($config))
+    ->withDefaults()
+    ->build()
+    ->result();
