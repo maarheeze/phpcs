@@ -73,6 +73,7 @@
                 <element value="@param"/>
                 <element value="@return"/>
                 <element value="@throws"/>
+                <element value="@see"/>
             </property>
         </properties>
     </rule>
