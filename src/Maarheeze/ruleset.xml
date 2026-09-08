@@ -62,6 +62,14 @@
             <property name="maxLinesCountBeforeWithoutComment" value="0"/>
         </properties>
     </rule>
+    <rule ref="SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature">
+        <properties>
+            <property name="minParametersCount" value="1"/>
+            <property name="includedMethodPatterns" type="array">
+                <element value="/^__construct$/"/>
+            </property>
+        </properties>
+    </rule>
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
         <properties>
