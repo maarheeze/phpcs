@@ -32,11 +32,8 @@ documented in [docs](docs).
 ## the opinionated standard
 
 `Maarheeze` is one reference that stands in for a whole ruleset. It builds on
-PSR-12, adds a selection of Generic, Squiz and Slevomat sniffs — strict types,
-trailing commas everywhere, imports sorted and pruned, short ternaries, no Yoda
-comparisons, a 90 character soft line limit — and brings in the custom sniffs
-above. The point is that the choices are settled here, so a project does not
-have to argue them out again:
+PSR-12, adds a selection of Generic, Squiz and Slevomat sniffs. The point is
+that the choices are settled here, so a project does not have to argue them out again:
 
 ```xml
 <rule ref="Maarheeze"/>

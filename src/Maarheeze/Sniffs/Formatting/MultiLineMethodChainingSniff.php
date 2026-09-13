@@ -20,14 +20,17 @@ class MultiLineMethodChainingSniff implements Sniff
 {
     public const string CODE_MULTI_LINE_REQUIRED = 'MultiLineRequired';
 
+    private const int INDENTATION_WIDTH = 4;
+
     /**
      * The number of calls a chain needs before it has to be broken up. A
      * ruleset hands its values over as strings, hence the union type.
      */
     public int|string $minimumCalls = 3;
 
-    private const int INDENTATION_WIDTH = 4;
-
+    /**
+     * @return list<int|string>
+     */
     public function register(): array
     {
         return MethodChain::OBJECT_OPERATORS;

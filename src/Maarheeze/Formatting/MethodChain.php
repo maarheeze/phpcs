@@ -79,7 +79,9 @@ readonly class MethodChain
     {
         return count(array_filter(
             $this->members,
-            static fn (ChainMember $member): bool => $member->isCall(),
+            static function (ChainMember $member): bool {
+                return $member->isCall();
+            },
         ));
     }
 

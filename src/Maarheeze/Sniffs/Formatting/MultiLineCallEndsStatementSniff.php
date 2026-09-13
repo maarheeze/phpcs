@@ -14,11 +14,14 @@ class MultiLineCallEndsStatementSniff implements Sniff
 {
     public const string CODE_CHAINED_ON_MULTI_LINE_CALL = 'ChainedOnMultiLineCall';
 
-    public bool $allowClosureArguments = true;
-
     private const string MESSAGE = 'A call whose arguments span multiple lines'
         . ' must end its statement; assign it to a variable first.';
 
+    public bool $allowClosureArguments = true;
+
+    /**
+     * @return list<int|string>
+     */
     public function register(): array
     {
         return MethodChain::OBJECT_OPERATORS;

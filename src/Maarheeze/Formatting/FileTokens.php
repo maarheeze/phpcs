@@ -9,7 +9,6 @@ use PHP_CodeSniffer\Util\Tokens;
 
 use function array_key_exists;
 use function assert;
-use function is_array;
 use function is_int;
 use function is_string;
 
@@ -20,9 +19,13 @@ class FileTokens
     /** @var array<int, array<string, mixed>> $tokens */
     private array $tokens;
 
-    public function __construct(private readonly File $file)
-    {
-        $this->tokens = $file->getTokens();
+    public function __construct(
+        private readonly File $file,
+    ) {
+        /** @var array<int, array<string, mixed>> $tokens */
+        $tokens = $file->getTokens();
+
+        $this->tokens = $tokens;
     }
 
     public function file(): File
@@ -109,9 +112,11 @@ class FileTokens
                 break;
             }
 
-            if ($this->codeAt($i) !== T_WHITESPACE) {
-                $first = $i;
+            if ($this->codeAt($i) === T_WHITESPACE) {
+                continue;
             }
+
+            $first = $i;
         }
 
         return $first;
@@ -122,9 +127,6 @@ class FileTokens
      */
     private function tokenAt(int $pointer): array
     {
-        $token = $this->tokens[$pointer];
-        assert(is_array($token));
-
-        return $token;
+        return $this->tokens[$pointer];
     }
 }

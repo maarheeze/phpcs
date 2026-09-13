@@ -2,6 +2,10 @@
 
 Breaking changes per major version, newest first.
 
+## 3.x to 4.0
+
+The package now requires PHP 8.4.
+
 ## 2.x to 3.0
 
 The package now requires PHP 8.3.
