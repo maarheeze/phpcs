@@ -19,7 +19,7 @@
     <rule ref="Generic.Commenting.Todo"/>
     <rule ref="Generic.Files.LineLength.TooLong">
         <properties>
-            <property name="lineLimit" value="90"/>
+            <property name="lineLimit" value="120"/>
             <property name="absoluteLineLimit" value="120"/>
         </properties>
     </rule>
