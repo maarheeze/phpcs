@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Maarheeze\Sniffs\Formatting;
 
-use Maarheeze\Formatting\ArgumentList;
-use Maarheeze\Formatting\FileTokens;
-use Maarheeze\Formatting\MethodChain;
+use Maarheeze\Sniffs\Helpers\ArgumentList;
+use Maarheeze\Sniffs\Helpers\FileTokens;
+use Maarheeze\Sniffs\Helpers\MethodChain;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 

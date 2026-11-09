@@ -6,12 +6,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Maarheeze\\": "src/Maarheeze"
+            "Maarheeze\\Sniffs\\": "src/Maarheeze/Sniffs"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Maarheeze\\": "tests"
+            "Maarheeze\\Sniffs\\": "tests/Sniffs"
         }
     },
     "config": {

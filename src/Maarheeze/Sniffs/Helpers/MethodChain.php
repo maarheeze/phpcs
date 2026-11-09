@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maarheeze\Formatting;
+namespace Maarheeze\Sniffs\Helpers;
 
 use function array_filter;
 use function count;
